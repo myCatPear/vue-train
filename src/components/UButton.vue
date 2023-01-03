@@ -1,4 +1,4 @@
 <script setup></script>
 <template>
-  <el-button type="primary" @click="submit">Отправить</el-button>
+  <el-button type="primary" @click="submit"><slot></slot></el-button>
 </template>

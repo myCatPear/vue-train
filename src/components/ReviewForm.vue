@@ -18,6 +18,8 @@ export default defineComponent({
       isRecommended: false,
     })
 
+    const stars = [1, 2, 3, 4, 5]
+
     const submit = () => {
       console.log('Submit!')
       axios
@@ -36,29 +38,21 @@ export default defineComponent({
     return {
       review,
       submit,
+      stars,
     }
   },
 })
-const stars = [1, 2, 3, 4, 5]
-const previewFilePath = computed(() => {
-  if (review.photo) return URL.createObjectURL(review.photo)
-})
-
-const uploadFile = (e) => {
-  const file = e.target.files[0]
-  review.photo = file
-}
 </script>
 
 <template>
   <form action="#">
-    <el-input v-model="review.author" placeholder="Please input" clearable />
-
-    <el-input
-      v-model="review.text"
-      :rows="2"
+    <UInput v-model="review.author" placeholder="Please input" clearable />
+    <!-- <el-input v-model="review.author" placeholder="Please input" clearable /> -->
+    <UInput
       type="textarea"
-      placeholder="Please input"
+      v-model="review.text"
+      placeholder="Please input text"
+      clearable
     />
 
     <h4>Оценка</h4>
@@ -68,20 +62,12 @@ const uploadFile = (e) => {
       }}</el-radio>
     </el-radio-group>
 
-    <div>
-      <input type="file" @change="uploadFile" />
-      <img
-        v-if="review.photo"
-        :src="previewFilePath"
-        alt="avatar"
-        style="width: 100px"
-      />
-    </div>
+    <UFile v-model="review.photo" />
 
     <el-radio-group v-model="review.isRecommended">
       <el-radio :label="false">Не советую</el-radio>
       <el-radio :label="true">Советую</el-radio>
     </el-radio-group>
-    <UButton />
+    <UButton>Отправить</UButton>
   </form>
 </template>
