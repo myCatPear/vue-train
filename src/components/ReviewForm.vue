@@ -47,7 +47,6 @@ export default defineComponent({
 <template>
   <form action="#">
     <UInput v-model="review.author" placeholder="Please input" clearable />
-    <!-- <el-input v-model="review.author" placeholder="Please input" clearable /> -->
     <UInput
       type="textarea"
       v-model="review.text"
@@ -56,6 +55,7 @@ export default defineComponent({
     />
 
     <h4>Оценка</h4>
+    <URadioButton v-model="review.stars" :data="stars" />
     <el-radio-group v-model="review.stars">
       <el-radio v-for="(star, index) in stars" :key="star" :label="index + 1">{{
         star
@@ -68,6 +68,6 @@ export default defineComponent({
       <el-radio :label="false">Не советую</el-radio>
       <el-radio :label="true">Советую</el-radio>
     </el-radio-group>
-    <UButton>Отправить</UButton>
+    <UButton :action="submit">Отправить</UButton>
   </form>
 </template>
